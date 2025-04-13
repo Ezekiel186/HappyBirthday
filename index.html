@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guitar Keyboard</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #1e1e1e;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .key-map {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎸 Play or Tune Guitar with Your Keyboard</h1>
+  <div class="key-map">
+    Press keys to play notes:<br>
+    <strong>Q</strong> = E | <strong>W</strong> = A | <strong>E</strong> = D | <strong>R</strong> = G | <strong>T</strong> = B | <strong>Y</strong> = high E
+  </div>
+
+  <script>
+    const noteMap = {
+      q: 'E',
+      w: 'A',
+      e: 'D',
+      r: 'G',
+      t: 'B',
+      y: 'highE'
+    };
+
+    document.addEventListener('keydown', event => {
+      const note = noteMap[event.key.toLowerCase()];
+      if (note) {
+        const audio = new Audio(`sounds/${note}.mp4`);
+        audio.play();
+      }
+    });
+  </script>
+</body>
+</html>
