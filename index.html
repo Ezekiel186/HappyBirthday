@@ -32,6 +32,26 @@
       height: auto;
       border-radius: 8px;
     }
+    .button-container {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .note-button {
+      background: #333;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .note-button:hover {
+      background: #555;
+    }
   </style>
 </head>
 <body>
@@ -43,6 +63,15 @@
 
   <div id="image-container">
     <img id="guitar-image" src="images/img0.png" alt="Guitar Visual">
+  </div>
+
+  <div class="button-container">
+    <button class="note-button" data-note="E">E</button>
+    <button class="note-button" data-note="A">A</button>
+    <button class="note-button" data-note="D">D</button>
+    <button class="note-button" data-note="G">G</button>
+    <button class="note-button" data-note="B">B</button>
+    <button class="note-button" data-note="highE">High E</button>
   </div>
 
   <script>
@@ -64,15 +93,26 @@
     let imageIndex = 0;
     const imageElement = document.getElementById('guitar-image');
 
+    function playNote(note) {
+      const audio = new Audio(`sounds/${note}.mp4`);
+      audio.play();
+
+      imageIndex = (imageIndex + 1) % images.length;
+      imageElement.src = images[imageIndex];
+    }
+
     document.addEventListener('keydown', event => {
       const note = noteMap[event.key.toLowerCase()];
       if (note) {
-        const audio = new Audio(`sounds/${note}.mp4`);
-        audio.play();
-
-        imageIndex = (imageIndex + 1) % images.length;
-        imageElement.src = images[imageIndex];
+        playNote(note);
       }
+    });
+
+    document.querySelectorAll('.note-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const note = button.getAttribute('data-note');
+        playNote(note);
+      });
     });
   </script>
 </body>
