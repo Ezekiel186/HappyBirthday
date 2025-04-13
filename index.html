@@ -20,14 +20,29 @@
     .key-map {
       font-size: 1.2rem;
       text-align: center;
+      margin-bottom: 20px;
+    }
+    #image-container {
+      width: 400px;
+      height: 700px;
+      overflow: hidden;
+    }
+    #image-container img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
     }
   </style>
 </head>
 <body>
-  <h1>🎸 Play or Tune Guitar with Your Keyboard</h1>
+  <h1>🎸 Play Guitar with Your Keyboard</h1>
   <div class="key-map">
     Press keys to play notes:<br>
     <strong>Q</strong> = E | <strong>W</strong> = A | <strong>E</strong> = D | <strong>R</strong> = G | <strong>T</strong> = B | <strong>Y</strong> = high E
+  </div>
+
+  <div id="image-container">
+    <img id="guitar-image" src="images/img1.png" alt="Guitar Visual">
   </div>
 
   <script>
@@ -40,11 +55,23 @@
       y: 'highE'
     };
 
+    const images = [
+      'images/img1.png',
+      'images/img2.png',
+      'images/img3.png'
+    ];
+
+    let imageIndex = 0;
+    const imageElement = document.getElementById('guitar-image');
+
     document.addEventListener('keydown', event => {
       const note = noteMap[event.key.toLowerCase()];
       if (note) {
         const audio = new Audio(`sounds/${note}.mp4`);
         audio.play();
+
+        imageIndex = (imageIndex + 1) % images.length;
+        imageElement.src = images[imageIndex];
       }
     });
   </script>
